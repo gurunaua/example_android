@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">LatihanStyle</string>
+    <string name="_6_photos">6 photo</string>
+    <string name="_735">735</string>
+    <string name="stock_hanya_5_buah">stock hanya 5 buah</string>
+    <string name="content_text">context text sdsdasdf ajajjjj jasdjfas jasjsdajsda a     aaaaaaaaaaaaaaaaa aaaaaaaaa ddddd aaaaaaaaaaas       dddddddddddd dddddddd</string>
+    <string name="spesifikasi">spesifikasi</string>
+    <string name="display">delay</string>
+    <string name="content_specs_display">content specs display</string>
+    <string name="size">size</string>
+    <string name="content_specs_size">content specs size</string>
+    <string name="battery">batery</string>
+    <string name="content_specs_battery">content specs battery</string>
+    <string name="dijual_oleh">dijual oleh</string>
+    <string name="narenda_wicaksono">narenda wicaksono</string>
+    <string name="beli">beli</string>
+</resources>
