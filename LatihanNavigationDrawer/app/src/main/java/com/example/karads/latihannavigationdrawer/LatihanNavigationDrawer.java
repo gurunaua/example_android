@@ -113,6 +113,12 @@ public class LatihanNavigationDrawer extends AppCompatActivity
 
         } else if (id == R.id.nav_share) {
 
+            setTitle("Retrofit Test");
+            FragmentRetrofit retrofit = new FragmentRetrofit();
+            FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.frame_main, retrofit);
+            fragmentTransaction.commit();
+
         } else if (id == R.id.nav_send) {
 
         }
