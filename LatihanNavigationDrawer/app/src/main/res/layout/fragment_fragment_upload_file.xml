@@ -1,0 +1,37 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.karads.latihannavigationdrawer.FragmentUploadFile">
+
+    <!-- TODO: Update blank fragment layout -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center">
+
+
+        <ImageView
+            android:id="@+id/image_photo"
+            android:layout_width="400dp"
+            android:layout_height="300dp"
+
+            android:src="@drawable/ic_menu_camera" />
+
+        <Button
+            android:id="@+id/btn_open_galery"
+            android:layout_width="200dp"
+            android:layout_height="80dp"
+            android:layout_margin="8dp"
+            android:text="Open Gallery" />
+
+        <Button
+            android:id="@+id/btn_upload"
+            android:layout_width="200dp"
+            android:layout_height="80dp"
+            android:layout_margin="8dp"
+            android:text="Button" />
+    </LinearLayout>
+</FrameLayout>

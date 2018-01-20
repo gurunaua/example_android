@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">KejarAndroid1</string>
+    <string name="error_message">Ini Error</string>
+    <string name="title_activity_movie_db">MovieDbActivity</string>
+</resources>

@@ -15,6 +15,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.example.karads.latihannavigationdrawer.retrofit.RetrofitClient;
+
 public class LatihanNavigationDrawer extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -46,6 +48,8 @@ public class LatihanNavigationDrawer extends AppCompatActivity
         mFragmentManager = getSupportFragmentManager();
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        RetrofitClient.getClient(getApplicationContext());
     }
 
     @Override
@@ -119,8 +123,20 @@ public class LatihanNavigationDrawer extends AppCompatActivity
             fragmentTransaction.replace(R.id.frame_main, retrofit);
             fragmentTransaction.commit();
 
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.nav_retrofit_post) {
 
+            setTitle("Retrofit POST Test");
+            FragmentRetrofitPost retrofit = new FragmentRetrofitPost();
+            FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.frame_main, retrofit);
+            fragmentTransaction.commit();
+
+        }else if (id == R.id.nav_retrofit_upload) {
+            setTitle("Retrofit Upload File");
+            FragmentUploadFile uploadFile = new FragmentUploadFile();
+            FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.frame_main, uploadFile);
+            fragmentTransaction.commit();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

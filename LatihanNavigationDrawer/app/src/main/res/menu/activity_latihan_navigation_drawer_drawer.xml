@@ -35,4 +35,18 @@
         </menu>
     </item>
 
+    <item android:title="Example Retrofit">
+
+        <menu>
+            <item
+                android:id="@+id/nav_retrofit_post"
+                android:icon="@drawable/ic_arrow_down"
+                android:title="Retrofit Post" />
+            <item
+                android:id="@+id/nav_retrofit_upload"
+                android:icon="@drawable/ic_file_upload_black"
+                android:title="Send" />
+        </menu>
+    </item>
+
 </menu>
