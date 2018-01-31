@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
         list.addAll(PresidentData.getListData());
 
         setActionBarTitle("Mode List");
-        showRecyclerList();
+        showRecyclerGrid();
     }
 
     private void showRecyclerList(){

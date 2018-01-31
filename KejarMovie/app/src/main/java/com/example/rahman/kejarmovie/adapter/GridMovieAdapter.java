@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 
 import com.example.rahman.kejarmovie.R;
-import com.example.rahman.kejarmovie.model.Movie;
+import com.example.rahman.kejarmovie.model.*;
 
 import java.util.ArrayList;
 
@@ -20,18 +20,20 @@ import java.util.ArrayList;
 
 public class GridMovieAdapter extends RecyclerView.Adapter <GridMovieAdapter.GridViewHolder>{
 
+    private static String BASE_URL_IMAGE= "http://image.tmdb.org/t/p/w185";
+
     private Context context;
-    private ArrayList<Movie> movies;
+    private ArrayList<MovieInfo> movies;
 
     public GridMovieAdapter(Context context){
         this.context = context;
     }
 
-    public ArrayList<Movie> getMovies() {
+    public ArrayList<MovieInfo> getMovies() {
         return movies;
     }
 
-    public void setMovies(ArrayList<Movie> movies) {
+    public void setMovies(ArrayList<MovieInfo> movies) {
         this.movies = movies;
     }
 
@@ -43,7 +45,7 @@ public class GridMovieAdapter extends RecyclerView.Adapter <GridMovieAdapter.Gri
 
     @Override
     public void onBindViewHolder(GridViewHolder holder, int position) {
-        Glide.with(context).load(getMovies().get(position).getImageUrl())
+        Glide.with(context).load(BASE_URL_IMAGE+getMovies().get(position).getPosterPath())
                 .override(350, 550).crossFade()
                 .into(holder.movieImage);
     }

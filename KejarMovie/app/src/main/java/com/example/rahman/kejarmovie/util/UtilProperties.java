@@ -6,6 +6,6 @@ package com.example.rahman.kejarmovie.util;
 
 public class UtilProperties {
 
-    public static String BASE_URL="https://api.themoviedb.org/3/movie/";
+    public static String BASE_URL="https://api.themoviedb.org/3/";
 
 }
