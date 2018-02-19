@@ -6,6 +6,7 @@ import com.example.rahman.kejarmovie.model.*;
 import com.example.rahman.kejarmovie.retrofit.*;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.database.Cursor;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
@@ -17,11 +18,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.rahman.kejarmovie.R;
-import com.example.rahman.kejarmovie.model.Movie;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
+
 import android.app.ProgressDialog;
 import android.view.View;
 import android.widget.Toast;
@@ -33,7 +34,6 @@ import retrofit2.Retrofit;
 
 public class MainActivity extends AppCompatActivity {
 
-    private String apiKey = "bb17600bd93578f4a3cf1dde1ac920d5";
     private static final String TAG = MainActivity.class.getName();
     ProgressDialog progressDialog;
     private List<Genre> genres = new ArrayList<>();
@@ -47,8 +47,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         rvMovie = findViewById(R.id.rv_movie);
+        SharedPref.context = getApplicationContext();
+        Log.i(TAG, ">>>> onCreate: "+SharedPref.getString(SharedPref.LANGUAGE));
         dbConnector = new DatabaseHelper(MainActivity.this);
         showRecyclerGrid();
+        SharedPref.saveString(SharedPref.LAST_PAGE, SharedPref.LAST_PAGE_MAINACTIVITY);
     }
 
     @Override
@@ -57,10 +60,7 @@ public class MainActivity extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        return super.onOptionsItemSelected(item);
-    }
+
 
     public void showRecyclerGrid(){
         rvMovie.setLayoutManager(new GridLayoutManager(this, 2));
@@ -115,9 +115,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void getMoviePopular(final GridMovieAdapter gridMovieAdapter){
-        Retrofit retrofit = RetrofitClient.getClient(getApplicationContext());
+        Retrofit retrofit = RetrofitMovieClient.getClient(getApplicationContext());
         MovieRetrofit movieRetrofit = retrofit.create(MovieRetrofit.class);
-        Call<ResponsePopularMovie> popular = movieRetrofit.getPopular(apiKey);
+        Call<ResponsePopularMovie> popular = movieRetrofit.getPopular(UtilProperties.API_KEY_MOVIE);
         popular.enqueue(new Callback<ResponsePopularMovie>() {
             @Override
             public void onResponse(Call<ResponsePopularMovie> call, Response<ResponsePopularMovie> response) {
@@ -131,8 +131,10 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void onItemClicked(RecyclerView recyclerView, int position, View v) {
                             showSelectedPresident(list.get(position));
-                            Intent intent = new Intent(MainActivity.this, DetailMovieActivity.class);
-                            intent.putExtra(DetailMovieActivity.EXTRA_ID_MOVIE, list.get(position).getId());
+                            Intent intent = new Intent(MainActivity.this, DetailActivity.class);
+                            int idMovie = list.get(position).getId();
+                            SharedPref.saveInt(SharedPref.MOVIE_ID,idMovie);
+                            intent.putExtra(DetailActivity.EXTRA_ID_MOVIE, idMovie);
                             startActivity(intent);
                         }
                     });
@@ -150,9 +152,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void getGenresFromApi() {
         Log.d(TAG, "getGenresFromApi: ");
-        Retrofit retrofit = RetrofitClient.getClient(getApplicationContext());
+        Retrofit retrofit = RetrofitMovieClient.getClient(getApplicationContext());
         MovieRetrofit movieRetrofit = retrofit.create(MovieRetrofit.class);
-        Call<ResponseGenres> genresCall= movieRetrofit.listRepos(apiKey);
+        Call<ResponseGenres> genresCall= movieRetrofit.listRepos(UtilProperties.API_KEY_MOVIE);
         genresCall.enqueue(new Callback<ResponseGenres>() {
             @Override
             public void onResponse(Call<ResponseGenres> call, Response<ResponseGenres> response) {
@@ -178,4 +180,33 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(this, "Kamu memilih "+movieInfo.getTitle(), Toast.LENGTH_SHORT).show();
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.action_language_id:
+                Log.i(TAG, "onOptionsItemSelected: action_list");
+                SharedPref.saveString(SharedPref.LANGUAGE, SharedPref.LANGUAGE_VALUE_INDONESIA);
+//                String token = SharedPref.getString(ACCESS_TOKEN);
+//                SharedPref.deleteString(ACCESS_TOKEN)
+                setLangRecreate("id");
+                break;
+            case R.id.action_language_en:
+                Log.i(TAG, "onOptionsItemSelected: action_grid: "+SharedPref.getString(SharedPref.LANGUAGE));
+                SharedPref.saveString(SharedPref.LANGUAGE, SharedPref.LANGUAGE_VALUE_ENGLISH);
+                setLangRecreate("en");
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+
+    Locale locale;
+    public void setLangRecreate(String langval) {
+        Configuration config = getBaseContext().getResources().getConfiguration();
+        locale = new Locale(langval);
+        Locale.setDefault(locale);
+        config.locale = locale;
+        getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
+        recreate();
+    }
 }

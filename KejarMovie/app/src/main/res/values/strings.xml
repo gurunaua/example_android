@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">KejarMovie</string>
     <string name="title_activity_detail_movie">DetailMovieActivity</string>
+    <string name="title_activity_test_life_cycle">TestLifeCycleActivity</string>
+    <string name="title_activity_test">Detail Movie</string>
+    <string name="title_activity_main2">Main2Activity</string>
+    <string name="title_movie">Title Movie</string>
+    <string name="mark_as_favorite">Mark As Favorite</string>
+    <string name="trailers">Trailers :</string>
 </resources>

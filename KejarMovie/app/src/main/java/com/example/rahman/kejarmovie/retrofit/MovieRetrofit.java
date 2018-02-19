@@ -14,6 +14,7 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
+import io.reactivex.Observable;
 
 public interface MovieRetrofit {
 
@@ -27,7 +28,9 @@ public interface MovieRetrofit {
     Call<ResponseReview> getReview(@Query("api_key") String apiKey, @Path("id") String idMovie);
 
     @GET("movie/{id}")
-    Call<ResponsePopularMovie> getDetail(@Query("api_key") String apiKey, @Path("id") String idMovie);
+    Observable<ResponseMovieDetail> getDetail(@Path("id") int idMovie,@Query("api_key") String apiKey );
 
+    @GET("movie/{id}/videos")
+    Observable<ResponseVideosMovie> getVideosMovie(@Path("id") int idMovie,@Query("api_key") String apiKey );
 
 }

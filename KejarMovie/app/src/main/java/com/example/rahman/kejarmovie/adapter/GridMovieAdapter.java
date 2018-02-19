@@ -13,14 +13,13 @@ import com.example.rahman.kejarmovie.R;
 import com.example.rahman.kejarmovie.model.*;
 
 import java.util.ArrayList;
+import com.example.rahman.kejarmovie.util.UtilProperties;
 
 /**
  * Created by karads on 1/27/2018.
  */
 
 public class GridMovieAdapter extends RecyclerView.Adapter <GridMovieAdapter.GridViewHolder>{
-
-    private static String BASE_URL_IMAGE= "http://image.tmdb.org/t/p/w185";
 
     private Context context;
     private ArrayList<MovieInfo> movies;
@@ -45,7 +44,7 @@ public class GridMovieAdapter extends RecyclerView.Adapter <GridMovieAdapter.Gri
 
     @Override
     public void onBindViewHolder(GridViewHolder holder, int position) {
-        Glide.with(context).load(BASE_URL_IMAGE+getMovies().get(position).getPosterPath())
+        Glide.with(context).load(UtilProperties.BASE_URL_IMAGE+getMovies().get(position).getPosterPath())
                 .override(350, 550).crossFade()
                 .into(holder.movieImage);
     }
